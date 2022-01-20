@@ -2,6 +2,11 @@
 
 Provides helpers to send IAM-signed requests to AWS AppSync and AWS API Gateway services
 
+- Generates a v4 sign using IAM credentials
+- Properly sends the request to the aws service
+- Checks for http status error code
+- Parses graphQL response and checks for graphql-formatted errors (Appsync only)
+
 ## Example Usage (Appsync GraphQL)
 
 ```go
