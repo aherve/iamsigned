@@ -1,4 +1,4 @@
-# golang-iam-requests
+# IAM signed
 
 Provides helpers to send IAM-signed requests to AWS AppSync and AWS API Gateway services
 
@@ -15,7 +15,7 @@ package main
 import (
 	"log"
 
-	signedReq "github.com/aherve/golang-iam-requests"
+	"github.com/aherve/iamsigned"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 )
@@ -36,7 +36,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	resp, err := signedReq.AppSyncDeliver([]byte(myMutation), endpoint, region, sess.Config.Credentials)
+	resp, err := iamsigned.AppSync([]byte(myMutation), endpoint, region, sess.Config.Credentials)
 	if err != nil {
 		log.Fatal(err)
 	}
