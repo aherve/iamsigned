@@ -1,10 +1,8 @@
-module github.com/aherve/golang-iam-requests
+module github.com/aherve/iamsigned
 
-go 1.17
+go 1.16
 
 require (
-	github.com/aws/aws-sdk-go v1.42.37
-	golang.org/x/net v0.0.0-20220114011407-0dd24b26b47d
+	github.com/aws/aws-sdk-go v1.42.39
+	golang.org/x/net v0.0.0-20220121210141-e204ce36a2ba
 )
-
-require github.com/jmespath/go-jmespath v0.4.0 // indirect

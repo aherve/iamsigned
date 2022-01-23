@@ -1,4 +1,4 @@
-package signedrequests
+package iamsigned
 
 import (
 	"bytes"
@@ -38,13 +38,13 @@ const (
 	APIGatewayService AWSService = "execute-api"
 )
 
-// AppSyncDeliver signs and send a request to appsync. It also parse the response and looks for graphql errors
-func AppSyncDeliver(payload []byte, endpoint, region string, creds *credentials.Credentials) ([]byte, error) {
-	return AppSyncDeliverWithContext(context.Background(), payload, endpoint, region, creds)
+// AppSync signs and send a request to appsync. It also parse the response and looks for graphql errors
+func AppSync(payload []byte, endpoint, region string, creds *credentials.Credentials) ([]byte, error) {
+	return AppSyncWithContext(context.Background(), payload, endpoint, region, creds)
 }
 
-// AppSyncDeliverWithContext does the same as AppSyncDeliver, with a context.Context object
-func AppSyncDeliverWithContext(ctx context.Context, payload []byte, endpoint, region string, creds *credentials.Credentials) ([]byte, error) {
+// AppSyncWithContext does the same as AppSyncDeliver, with a context.Context object
+func AppSyncWithContext(ctx context.Context, payload []byte, endpoint, region string, creds *credentials.Credentials) ([]byte, error) {
 	body, err := deliverWithContext(ctx, payload, AppSyncService, endpoint, region, http.MethodPost, creds)
 	if err != nil {
 		return nil, err
@@ -52,8 +52,8 @@ func AppSyncDeliverWithContext(ctx context.Context, payload []byte, endpoint, re
 	return ParseGraphQLResponse(body)
 }
 
-// APIGatewayDeliverWithContext does the same as APIGatewayDeliver, with a context.Context object
-func APIGatewayDeliverWithContext(ctx context.Context, payload []byte, endpoint, region, method string, creds *credentials.Credentials) ([]byte, error) {
+// APIGatewayWithContext does the same as APIGatewayDeliver, with a context.Context object
+func APIGatewayWithContext(ctx context.Context, payload []byte, endpoint, region, method string, creds *credentials.Credentials) ([]byte, error) {
 	body, err := deliverWithContext(ctx, payload, APIGatewayService, endpoint, region, method, creds)
 	if err != nil {
 		return nil, err
@@ -65,9 +65,9 @@ func APIGatewayDeliverWithContext(ctx context.Context, payload []byte, endpoint,
 	return buf.Bytes(), nil
 }
 
-// APIGatewayDeliver signs and sends a request to API Gateway
-func APIGatewayDeliver(payload []byte, endpoint, region, method string, creds *credentials.Credentials) ([]byte, error) {
-	return APIGatewayDeliverWithContext(context.Background(), payload, endpoint, region, method, creds)
+// APIGateway signs and sends a request to API Gateway
+func APIGateway(payload []byte, endpoint, region, method string, creds *credentials.Credentials) ([]byte, error) {
+	return APIGatewayWithContext(context.Background(), payload, endpoint, region, method, creds)
 }
 
 // ParseGraphQLResponse attempts to read the response, and extract grpahql-formatted errors
